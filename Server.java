@@ -1,13 +1,10 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -41,12 +38,24 @@ public class Server {
             //mOut = mSocket.getOutputStream();
             mOut = new PrintWriter(mSocket.getOutputStream());
 
-            //클라이언트에서 보낸 문자열 출력
-            System.out.println(mIn.readLine());
+            while(true){
+                Scanner scanner = new Scanner(System.in);
+                String stringTemp;
+                String buffer;
+                System.out.println(">>");
+                buffer = scanner.nextLine();
+                stringTemp = scanner.nextLine();
+                if(stringTemp == "DISCONNECT"){
+                    break;
+                }else {
+                    //클라이언트에서 보낸 문자열 출력
+                    System.out.println(mIn.readLine());
 
-            //클라이언트에 문자열 전송
-            mOut.println("전송 잘 되었음");
-            mOut.flush();//쌓인 데이터를 상대 소켓으로 전송하는 역할을 한다.
+                    //클라이언트에 문자열 전송
+                    mOut.println(stringTemp);
+                    mOut.flush();//쌓인 데이터를 상대 소켓으로 전송하는 역할을 한다.
+                }
+            }
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
