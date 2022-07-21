@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 
@@ -22,11 +23,24 @@ public class Client {
                     new InputStreamReader(msocket.getInputStream()));
             mOut = new PrintWriter(msocket.getOutputStream());
 
-            //메세지 전달
-            mOut.println("응답하라!!");
-            mOut.flush();
+            while(true){
+                Scanner scanner = new Scanner(System.in);
+                String stringTemp;
+                String buffer;
+                System.out.println(">>");
+                buffer = scanner.nextLine();
+                stringTemp = scanner.nextLine();
+                if(stringTemp == "DISCONNECT"){
+                    break;
+                }else{
 
-            System.out.println(mIn.readLine());
+                    //메세지 전달
+                    mOut.println(stringTemp);
+                    mOut.flush();
+
+                    System.out.println(mIn.readLine());
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
