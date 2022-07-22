@@ -28,18 +28,14 @@ public class Client {
             while(true){
                 Scanner scanner = new Scanner(System.in);
                 String stringTemp;
-                String buffer;
                 System.out.println(">>");
-                buffer = scanner.nextLine();
                 stringTemp = scanner.nextLine();
                 if(stringTemp == "DISCONNECT"){
                     break;
                 }else{
-
                     //메세지 전달
                     mOut.println(stringTemp);
                     mOut.flush();
-
                     System.out.println(mIn.readLine());
                 }
             }
