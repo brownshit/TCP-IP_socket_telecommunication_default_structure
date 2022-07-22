@@ -41,16 +41,13 @@ public class Server {
             while(true){
                 Scanner scanner = new Scanner(System.in);
                 String stringTemp;
-                String buffer;
                 System.out.println(">>");
-                buffer = scanner.nextLine();
                 stringTemp = scanner.nextLine();
                 if(stringTemp == "DISCONNECT"){
                     break;
                 }else {
                     //클라이언트에서 보낸 문자열 출력
                     System.out.println(mIn.readLine());
-
                     //클라이언트에 문자열 전송
                     mOut.println(stringTemp);
                     mOut.flush();//쌓인 데이터를 상대 소켓으로 전송하는 역할을 한다.
